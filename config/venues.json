@@ -1,0 +1,37 @@
+[
+  {
+    "id": "colony",
+    "name": "Colony",
+    "town": "Woodstock",
+    "reader": "colony",
+    "url": "https://www.colonywoodstock.com/shows"
+  },
+  {
+    "id": "bearsville",
+    "name": "Bearsville Theater",
+    "town": "Woodstock",
+    "reader": "bearsville",
+    "url": "https://bearsvilletheater.com/"
+  },
+  {
+    "id": "pearl-moon",
+    "name": "Pearl Moon",
+    "town": "Woodstock",
+    "reader": "pearl_moon",
+    "url": "https://pearlmoonwoodstock.com/events"
+  },
+  {
+    "id": "the-local",
+    "name": "The Local",
+    "town": "Saugerties",
+    "reader": "dice",
+    "url": "https://dice.fm/venue/the-local-gx3p"
+  },
+  {
+    "id": "the-partition",
+    "name": "The Partition",
+    "town": "Saugerties",
+    "reader": "partition",
+    "url": "https://www.partitionbar.com/event-list"
+  }
+]
