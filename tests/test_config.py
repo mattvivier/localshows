@@ -15,7 +15,6 @@ def test_repo_venue_list():
         "bearsville",
         "pearl-moon",
         "the-local",
-        "the-partition",
     }
 
 

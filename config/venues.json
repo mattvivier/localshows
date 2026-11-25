@@ -26,12 +26,5 @@
     "town": "Saugerties",
     "reader": "dice",
     "url": "https://dice.fm/venue/the-local-gx3p"
-  },
-  {
-    "id": "the-partition",
-    "name": "The Partition",
-    "town": "Saugerties",
-    "reader": "partition",
-    "url": "https://www.partitionbar.com/event-list"
   }
 ]

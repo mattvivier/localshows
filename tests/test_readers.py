@@ -6,7 +6,7 @@ import pytest
 from localshows import listings
 from localshows.config import Venue
 from localshows.models import Listing
-from localshows.readers import READERS, bearsville, colony, dice, partition, pearl_moon
+from localshows.readers import READERS, bearsville, colony, dice, pearl_moon
 from localshows.readers.common import clock, date_without_year
 from localshows.web import ReadError
 
@@ -94,29 +94,12 @@ def test_dice_listing_uses_local_date():
     assert found.lineup == ("Duchess",)
 
 
-def wix_page(events, more=False):
-    data = {"widget": {"events": {"events": events, "hasMore": more}}}
-    return f'<script type="application/json">{json.dumps(data)}</script>'
-
-
-def test_partition_empty_is_fine():
-    assert partition.extract(wix_page([]), VENUE) == []
-
-
-def test_partition_event():
-    config = {"startDate": "2027-06-06T01:00:00.000Z", "timeZoneId": "America/New_York"}
-    event = {"title": "The Fuze", "scheduling": {"config": config}}
-    [found] = partition.extract(wix_page([event]), VENUE)
-    assert (found.day, found.start) == (date(2027, 6, 5), time(21))
-
-
 @pytest.mark.parametrize(
     "read",
     [
         lambda page: bearsville.extract(page, VENUE, TODAY),
         lambda page: pearl_moon.extract(page, VENUE),
         lambda page: colony.extract(page, VENUE),
-        lambda page: partition.extract(page, VENUE),
         dice.extract_events,
     ],
 )
