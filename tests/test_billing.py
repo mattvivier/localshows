@@ -208,3 +208,10 @@ def test_duplicate_listing_is_dropped_but_second_set_stays():
 def test_billing_falls_back_on_each_person():
     also = parse(listing("Larry Campbell & Teresa Williams")).headliner.also
     assert also == ["Larry Campbell", "Teresa Williams"]
+
+
+def test_members_of_another_band_is_not_an_act():
+    show = parse(
+        listing("The Weight Band", support="ft. former members of The Band & Levon Helm Band")
+    )
+    assert billed(show) == ["The Weight Band"]

@@ -1,0 +1,3 @@
+{
+  "_about": "Optional. Billed act name -> Spotify artist ID, or null to leave the act out. Empty is fine."
+}

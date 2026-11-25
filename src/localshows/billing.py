@@ -67,6 +67,8 @@ _TRIBUTE = re.compile(
     r"(?i:\btribute\b|\bsalute to\b|\bmusic of\b|\bexperience you can\b)"
     r"|\b[A-Z]\w+ [A-Z]\w+ experience\b|\b[Cc]elebration of [A-Z]"
 )
+# "ft. former members of The Band" describes the lineup; it isn't an act.
+_MEMBERS = re.compile(r"^(?:(?:former|original|current|founding)\s+)?members?\s+of\b", re.I)
 _CONCERT_WITH = re.compile(r"\bconcert\b[^.*]*?\bwith\b[^.*]*\*\*([^*]+)\*\*", re.I)
 
 
@@ -230,6 +232,8 @@ def parse(listing: Listing, series: set[str] = frozenset()) -> Show:
     tribute = bool(_TRIBUTE.search(f"{listing.title} {listing.support} {description[:250]}"))
     for role, names in (("headliner", leads), ("opener", openers), ("guest", guests)):
         for name in names:
+            if _MEMBERS.match(name):
+                continue
             is_tribute = tribute and role == "headliner"
             # A tribute gets no fallbacks: "Dead Man's Waltz" mustn't become "Dead Man".
             also = [] if is_tribute else _other_names(name)
