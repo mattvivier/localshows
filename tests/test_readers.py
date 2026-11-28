@@ -67,6 +67,19 @@ def test_colony():
     assert found.url == "https://www.eventbrite.com/e/1"
 
 
+def test_dice_past_shows_may_run_to_more_pages():
+    profile = {
+        "profile_has_events": True,
+        "sections": [
+            {"key": "upcoming", "events": [{"id": "1"}]},
+            {"key": "past", "load_more": True, "events": [{"id": "0"}]},
+        ],
+    }
+    data = json.dumps({"props": {"pageProps": {"profile": profile}}})
+    page = f'<script id="__NEXT_DATA__">{data}</script>'
+    assert dice.extract_events(page) == [{"id": "1"}]
+
+
 def dice_page(**section):
     profile = {"profile_has_events": True, "sections": [section]}
     data = {"props": {"pageProps": {"profile": profile}}}
@@ -122,3 +135,13 @@ def test_one_broken_venue_does_not_stop_the_rest(monkeypatch):
     result = listings.collect(venues, None, TODAY)
     assert list(result.failures) == ["a"]
     assert result.counts == {"b": 2}
+
+
+def test_write_up_is_only_the_write_up_block():
+    from localshows.details import write_up
+
+    page = (
+        '<div class="et_pb_post_content"><p>Featuring  Jane Doe.</p></div>'
+        '<div class="upcoming">Another Band</div>'
+    )
+    assert write_up(page, ".et_pb_post_content") == "Featuring Jane Doe."

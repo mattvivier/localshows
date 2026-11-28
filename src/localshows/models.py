@@ -16,6 +16,8 @@ class Listing:
     description: str = ""
     support: str = ""
     lineup: tuple[str, ...] = ()
+    # The write-up on the show's own page, used only as evidence for artist matching.
+    page_text: str = ""
 
 
 @dataclass

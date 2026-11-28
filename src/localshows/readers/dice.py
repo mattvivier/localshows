@@ -21,12 +21,17 @@ def extract_events(page: str) -> list[dict]:
         has_events = profile["profile_has_events"]
     except (AttributeError, KeyError, TypeError, ValueError) as error:
         raise ReadError("DICE's page data has changed shape") from error
-    events = []
+    events, upcoming = [], False
     for section in sections:
+        # Past shows can run to many pages; they don't matter.
+        if section.get("key") == "past":
+            continue
+        upcoming |= section.get("key") == "upcoming"
         if section.get("load_more"):
             raise ReadError("DICE's venue page no longer holds the whole list")
         events += section.get("events") or []
-    if has_events and not events:
+    # An empty "upcoming" section is a real answer; no section at all is not.
+    if has_events and not events and not upcoming:
         raise ReadError("DICE says there are events, but none were found")
     return events
 

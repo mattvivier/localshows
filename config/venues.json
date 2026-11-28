@@ -4,27 +4,35 @@
     "name": "Colony",
     "town": "Woodstock",
     "reader": "colony",
-    "url": "https://www.colonywoodstock.com/shows"
+    "url": "https://www.colonywoodstock.com/shows",
+    "followers_max": 750000,
+    "headliner_min_followers": 0
   },
   {
     "id": "bearsville",
     "name": "Bearsville Theater",
     "town": "Woodstock",
     "reader": "bearsville",
-    "url": "https://bearsvilletheater.com/"
+    "url": "https://bearsvilletheater.com/",
+    "followers_max": 3000000,
+    "headliner_min_followers": 1000
   },
   {
     "id": "pearl-moon",
     "name": "Pearl Moon",
     "town": "Woodstock",
     "reader": "pearl_moon",
-    "url": "https://pearlmoonwoodstock.com/events"
+    "url": "https://pearlmoonwoodstock.com/events",
+    "followers_max": 150000,
+    "headliner_min_followers": 0
   },
   {
     "id": "the-local",
     "name": "The Local",
     "town": "Saugerties",
     "reader": "dice",
-    "url": "https://dice.fm/venue/the-local-gx3p"
+    "url": "https://dice.fm/venue/the-local-gx3p",
+    "followers_max": 150000,
+    "headliner_min_followers": 0
   }
 ]

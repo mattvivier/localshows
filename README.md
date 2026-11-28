@@ -14,18 +14,21 @@ daily run come next.
 .venv/bin/localshows match                        # each act's Spotify artist
 ```
 
-`match` needs API keys in a `.env` file at the repo root (gitignored):
+`match` needs Spotify app keys in a `.env` file at the repo root (gitignored):
 
 ```
-LASTFM_API_KEY=
 SPOTIFY_CLIENT_ID=
 SPOTIFY_CLIENT_SECRET=
+LASTFM_API_KEY=          # for song picking, next
 ```
 
-It writes its findings to `local/matches.txt`. An act is matched by fuzzy name, and
-when several Spotify artists share the name, by which one has the name's most-played
-songs on Last.fm. Acts that can't be told apart are left out rather than guessed.
-`config/overrides.json` can pin or skip an act, but is meant to stay empty.
+It writes its findings to `local/matches.txt`. An act is matched by fuzzy name. When
+several Spotify artists share the name, or a lone one looks wrong, clues tied to each
+specific artist decide: people or records named in the show's write-up that appear in
+that artist's catalog, whether the artist's following fits the size of the room
+(`followers_max` and `headliner_min_followers` in `config/venues.json`), and whether
+they're still releasing music. Acts that can't be told apart are left out rather than
+guessed. `config/overrides.json` can pin or skip an act, but is meant to stay empty.
 
 Colony's calendar is drawn by a script, so reading it needs Google Chrome installed.
 Titles are turned into headliners and openers by rules and fuzzy matching

@@ -12,6 +12,11 @@ class Venue:
     town: str
     reader: str
     url: str
+    # A rough ceiling on a playing artist's Spotify followers, from the size of the room;
+    # an artist far above it is almost certainly a namesake. Evidence, never proof.
+    followers_max: int | None = None
+    # And a floor for headliners, who draw a crowd. Openers can be anyone.
+    headliner_min_followers: int = 0
 
 
 def load_venues(root: Path) -> list[Venue]:

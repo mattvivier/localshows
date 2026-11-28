@@ -3,7 +3,7 @@
 from dataclasses import dataclass, field
 from datetime import date, timedelta
 
-from localshows import billing
+from localshows import billing, details
 from localshows.config import Venue
 from localshows.models import Show
 from localshows.readers import READERS
@@ -17,9 +17,11 @@ class Collected:
     shows: list[Show] = field(default_factory=list)
     counts: dict[str, int] = field(default_factory=dict)
     failures: dict[str, str] = field(default_factory=dict)
+    # Show pages that couldn't be read for a write-up, per venue (not a failure).
+    no_write_up: dict[str, int] = field(default_factory=dict)
 
 
-def collect(venues: list[Venue], web: Web, today: date) -> Collected:
+def collect(venues: list[Venue], web: Web, today: date, write_ups: bool = False) -> Collected:
     result, listings = Collected(), []
     for venue in venues:
         try:
@@ -31,6 +33,10 @@ def collect(venues: list[Venue], web: Web, today: date) -> Collected:
         else:
             upcoming = [item for item in found if today <= item.day <= today + WINDOW]
             result.counts[venue.id] = len(upcoming)
+            if write_ups:
+                upcoming, missing = details.add_write_ups(upcoming, venue.reader, web)
+                if missing:
+                    result.no_write_up[venue.id] = missing
             listings += upcoming
     result.shows = billing.parse_all(listings)
     return result
